@@ -19,5 +19,7 @@ namespace Todea_Denisa_Lab2.Data
         public DbSet<Todea_Denisa_Lab2.Models.Publishers> Publisher { get; set; }
 
         public DbSet<Todea_Denisa_Lab2.Models.Authors> Authors { get; set; }
+
+        public DbSet<Todea_Denisa_Lab2.Models.Category> Category { get; set; }
     }
 }
