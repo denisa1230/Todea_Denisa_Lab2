@@ -19,7 +19,7 @@ namespace Todea_Denisa_Lab2.Pages.Publishers
             _context = context;
         }
 
-      public Models.Publishers Publisher { get; set; }
+      public Publisher Publisher { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {

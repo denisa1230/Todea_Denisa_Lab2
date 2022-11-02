@@ -25,7 +25,7 @@ namespace Todea_Denisa_Lab2.Pages.Publishers
         }
 
         [BindProperty]
-        public Models.Publishers Publisher { get; set; }
+        public Publisher Publisher { get; set; }
         
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD

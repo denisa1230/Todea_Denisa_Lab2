@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Todea_Denisa_Lab2.Data;
 using Todea_Denisa_Lab2.Models;
 
-namespace Todea_Denisa_Lab2.Pages.Author
+namespace Todea_Denisa_Lab2.Pages.Authors
 {
     public class DetailsModel : PageModel
     {
@@ -19,7 +19,7 @@ namespace Todea_Denisa_Lab2.Pages.Author
             _context = context;
         }
 
-      public Authors Authors { get; set; }
+      public Author Author { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,14 +28,14 @@ namespace Todea_Denisa_Lab2.Pages.Author
                 return NotFound();
             }
 
-            var authors = await _context.Authors.FirstOrDefaultAsync(m => m.ID == id);
-            if (authors == null)
+            var author = await _context.Authors.FirstOrDefaultAsync(m => m.ID == id);
+            if (author == null)
             {
                 return NotFound();
             }
             else 
             {
-                Authors = authors;
+                Author = author;
             }
             return Page();
         }

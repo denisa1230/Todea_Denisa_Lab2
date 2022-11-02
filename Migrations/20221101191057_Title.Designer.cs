@@ -12,8 +12,8 @@ using Todea_Denisa_Lab2.Data;
 namespace Todea_Denisa_Lab2.Migrations
 {
     [DbContext(typeof(Todea_Denisa_Lab2Context))]
-    [Migration("20221025072910_Author")]
-    partial class Author
+    [Migration("20221101191057_Title")]
+    partial class Title
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,7 +24,7 @@ namespace Todea_Denisa_Lab2.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Todea_Denisa_Lab2.Models.Authors", b =>
+            modelBuilder.Entity("Todea_Denisa_Lab2.Models.Author", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -32,11 +32,7 @@ namespace Todea_Denisa_Lab2.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
+                    b.Property<string>("FullName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -78,7 +74,47 @@ namespace Todea_Denisa_Lab2.Migrations
                     b.ToTable("Book");
                 });
 
-            modelBuilder.Entity("Todea_Denisa_Lab2.Models.Publishers", b =>
+            modelBuilder.Entity("Todea_Denisa_Lab2.Models.BookCategory", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<int>("BookID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoryID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("BookID");
+
+                    b.HasIndex("CategoryID");
+
+                    b.ToTable("BookCategory");
+                });
+
+            modelBuilder.Entity("Todea_Denisa_Lab2.Models.Category", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Category");
+                });
+
+            modelBuilder.Entity("Todea_Denisa_Lab2.Models.Publisher", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -97,11 +133,11 @@ namespace Todea_Denisa_Lab2.Migrations
 
             modelBuilder.Entity("Todea_Denisa_Lab2.Models.Book", b =>
                 {
-                    b.HasOne("Todea_Denisa_Lab2.Models.Authors", "Author")
+                    b.HasOne("Todea_Denisa_Lab2.Models.Author", "Author")
                         .WithMany("Books")
                         .HasForeignKey("AuthorID");
 
-                    b.HasOne("Todea_Denisa_Lab2.Models.Publishers", "Publisher")
+                    b.HasOne("Todea_Denisa_Lab2.Models.Publisher", "Publisher")
                         .WithMany("Books")
                         .HasForeignKey("PublisherID");
 
@@ -110,12 +146,41 @@ namespace Todea_Denisa_Lab2.Migrations
                     b.Navigation("Publisher");
                 });
 
-            modelBuilder.Entity("Todea_Denisa_Lab2.Models.Authors", b =>
+            modelBuilder.Entity("Todea_Denisa_Lab2.Models.BookCategory", b =>
+                {
+                    b.HasOne("Todea_Denisa_Lab2.Models.Book", "Book")
+                        .WithMany("BookCategories")
+                        .HasForeignKey("BookID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Todea_Denisa_Lab2.Models.Category", "Category")
+                        .WithMany("BookCategories")
+                        .HasForeignKey("CategoryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("Todea_Denisa_Lab2.Models.Author", b =>
                 {
                     b.Navigation("Books");
                 });
 
-            modelBuilder.Entity("Todea_Denisa_Lab2.Models.Publishers", b =>
+            modelBuilder.Entity("Todea_Denisa_Lab2.Models.Book", b =>
+                {
+                    b.Navigation("BookCategories");
+                });
+
+            modelBuilder.Entity("Todea_Denisa_Lab2.Models.Category", b =>
+                {
+                    b.Navigation("BookCategories");
+                });
+
+            modelBuilder.Entity("Todea_Denisa_Lab2.Models.Publisher", b =>
                 {
                     b.Navigation("Books");
                 });

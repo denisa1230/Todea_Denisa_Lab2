@@ -1,6 +1,6 @@
 ﻿namespace Todea_Denisa_Lab2.Models
 {
-    public class Publishers
+    public class Publisher
     {
         public int ID { get; set; }
         public string PublisherName { get; set; }

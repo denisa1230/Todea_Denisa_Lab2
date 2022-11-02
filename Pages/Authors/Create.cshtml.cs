@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Todea_Denisa_Lab2.Data;
 using Todea_Denisa_Lab2.Models;
 
-namespace Todea_Denisa_Lab2.Pages.Author
+namespace Todea_Denisa_Lab2.Pages.Authors
 {
     public class CreateModel : PageModel
     {
@@ -21,11 +21,12 @@ namespace Todea_Denisa_Lab2.Pages.Author
 
         public IActionResult OnGet()
         {
+
             return Page();
         }
 
         [BindProperty]
-        public Authors Authors { get; set; }
+        public Author Author { get; set; }
         
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
@@ -36,7 +37,7 @@ namespace Todea_Denisa_Lab2.Pages.Author
                 return Page();
             }
 
-            _context.Authors.Add(Authors);
+            _context.Authors.Add(Author);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

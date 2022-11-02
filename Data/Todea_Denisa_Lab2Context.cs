@@ -16,9 +16,9 @@ namespace Todea_Denisa_Lab2.Data
 
         public DbSet<Todea_Denisa_Lab2.Models.Book> Book { get; set; } = default!;
 
-        public DbSet<Todea_Denisa_Lab2.Models.Publishers> Publisher { get; set; }
+        public DbSet<Todea_Denisa_Lab2.Models.Publisher> Publisher { get; set; }
 
-        public DbSet<Todea_Denisa_Lab2.Models.Authors> Authors { get; set; }
+        public DbSet<Todea_Denisa_Lab2.Models.Author> Authors { get; set; }
 
         public DbSet<Todea_Denisa_Lab2.Models.Category> Category { get; set; }
     }

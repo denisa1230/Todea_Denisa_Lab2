@@ -32,22 +32,27 @@ namespace Todea_Denisa_Lab2.Pages.Books
                 return NotFound();
             }
 
-            var book =  await _context.Book.FirstOrDefaultAsync(m => m.ID == id);
-            Book = await _context.Book
+            var book = await _context.Book
             .Include(b => b.Publisher)
+            .Include(b => b.Author)
             .Include(b => b.BookCategories).ThenInclude(b => b.Category)
             .AsNoTracking()
             .FirstOrDefaultAsync(m => m.ID == id);
+
+
             if (book == null)
             {
                 return NotFound();
             }
-            PopulateAssignedCategoryData(_context, Book);
 
             Book = book;
-            ViewData["PublisherID"] = new SelectList(_context.Set<Models.Publishers>(), "ID","PublisherName");
-            ViewData["AuthorID"] = new SelectList(_context.Set<Authors>(), "ID","LastName");
-            ViewData["AuthorID"] = new SelectList(_context.Set<Authors>(), "ID", "FirstName");
+
+            PopulateAssignedCategoryData(_context, Book);
+
+           
+            ViewData["PublisherID"] = new SelectList(_context.Set<Models.Publisher>(), "ID","PublisherName");
+            ViewData["AuthorID"] = new SelectList(_context.Set<Models.Author>(), "ID","FullName");
+           
             return Page();
         }
 
@@ -63,6 +68,7 @@ selectedCategories)
 
             var bookToUpdate = await _context.Book
             .Include(i => i.Publisher)
+             .Include(i => i.Author)
             .Include(i => i.BookCategories)
             .ThenInclude(i => i.Category)
             .FirstOrDefaultAsync(s => s.ID == id);
@@ -74,8 +80,8 @@ selectedCategories)
             if (await TryUpdateModelAsync<Book>(
             bookToUpdate,
             "Book",
-            i => i.Title, i => i.Author,
-            i => i.Price, i => i.PublishingDate, i => i.Publisher))
+            i => i.Title, i => i.AuthorID,
+            i => i.Price, i => i.PublishingDate, i => i.PublisherID))
             {
                 UpdateBookCategories(_context, selectedCategories, bookToUpdate);
                 await _context.SaveChangesAsync();

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Todea_Denisa_Lab2.Data;
 using Todea_Denisa_Lab2.Models;
 
-namespace Todea_Denisa_Lab2.Pages.Author
+namespace Todea_Denisa_Lab2.Pages.Authors
 {
     public class EditModel : PageModel
     {
@@ -21,7 +21,7 @@ namespace Todea_Denisa_Lab2.Pages.Author
         }
 
         [BindProperty]
-        public Authors Authors { get; set; } = default!;
+        public Author Author { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,12 +30,12 @@ namespace Todea_Denisa_Lab2.Pages.Author
                 return NotFound();
             }
 
-            var authors =  await _context.Authors.FirstOrDefaultAsync(m => m.ID == id);
-            if (authors == null)
+            var author =  await _context.Authors.FirstOrDefaultAsync(m => m.ID == id);
+            if (author == null)
             {
                 return NotFound();
             }
-            Authors = authors;
+            Author = author;
             return Page();
         }
 
@@ -48,7 +48,7 @@ namespace Todea_Denisa_Lab2.Pages.Author
                 return Page();
             }
 
-            _context.Attach(Authors).State = EntityState.Modified;
+            _context.Attach(Author).State = EntityState.Modified;
 
             try
             {
@@ -56,7 +56,7 @@ namespace Todea_Denisa_Lab2.Pages.Author
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AuthorsExists(Authors.ID))
+                if (!AuthorExists(Author.ID))
                 {
                     return NotFound();
                 }
@@ -69,7 +69,7 @@ namespace Todea_Denisa_Lab2.Pages.Author
             return RedirectToPage("./Index");
         }
 
-        private bool AuthorsExists(int id)
+        private bool AuthorExists(int id)
         {
           return _context.Authors.Any(e => e.ID == id);
         }
