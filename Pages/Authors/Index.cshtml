@@ -16,15 +16,19 @@
             <th>
                 @Html.DisplayNameFor(model => model.Author[0].FullName)
             </th>
+            
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model.Author) {
         <tr>
+                
             <td>
-                @Html.DisplayFor(modelItem => item.FullName)
-            </td>
+               @Html.DisplayFor(modelItem => item.FullName)
+             </td>
+            
+
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |

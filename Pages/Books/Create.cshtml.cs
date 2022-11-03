@@ -24,7 +24,13 @@ namespace Todea_Denisa_Lab2.Pages.Books
 
         public IActionResult OnGet()
         {
-            ViewData["AuthorID"] = new SelectList(_context.Set<Models.Author>(), "ID", "FullName");
+            var authorList = _context.Authors.Select(x => new
+            {
+                x.ID,
+                FullName = x.LastName + " " + x.FirstName
+            }
+             );
+            ViewData["AuthorID"] = new SelectList(authorList, "ID", "FullName");
             ViewData["PublisherID"] = new SelectList(_context.Set<Models.Publisher>(), "ID", "PublisherName");
 
             var book = new Book();
