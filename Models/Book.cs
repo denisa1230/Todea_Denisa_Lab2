@@ -11,6 +11,8 @@ namespace Todea_Denisa_Lab2.Models
         
         public int ID { get; set; }
         [Display(Name = "Book Title")]
+        [StringLength(150, MinimumLength = 3)]
+        [Required]
         public string Title { get; set; }
 
         public int? AuthorID { get; set; }
